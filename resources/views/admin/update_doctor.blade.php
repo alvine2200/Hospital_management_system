@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <!-- Required meta tags -->
-    @include('admin.css');
 
     <style type="text/css">
      *{
@@ -149,24 +147,26 @@
 
     </style>
 
+    <base href="/public">
+
+    <!-- Required meta tags -->
+    @include('admin.css');
   </head>
   <body>
     <div class="container-scroller">
       <!-- partial:partials/_sidebar.html -->
+
+
       
       @include('admin.sidebar');
 
-      @include('admin.navbar'); 
-
+      @include('admin.navbar');
       
       <div class="container-fluid page-body-wrapper">
 
-        
-
-
-        <div class="container">
+                <div class="container">
               <div class="title">
-                <h1 style="color: white; display: flex; justify-content: center; align-items: center;">Register New Doctor</h1>
+                <h1 style="color: white; display: flex; justify-content: center; align-items: center;">Update Doctors Profile</h1>
               </div>
               <div class="content">
 
@@ -184,17 +184,21 @@
 
                   @endif
                   
-                <form action="{{ url('upload_doctor') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ url('edit_doctor', $data->id) }}" method="POST" enctype="multipart/form-data">
+
                   @csrf
+
+
                   <div class="user-details">
                     <div class="input-box">
                       <span class="details">Full Name</span>
-                      <input type="text" name="fullname" placeholder="Enter  name" required>
+                      <input type="text" name="fullname"value="{{$data->fullname}}" required>
                     </div>
                     <div class="input-box">
+
                       <span class="details">Speciality</span>
-                    <select name="speciality" style="color:black;">
-                      <option default value="">-Select Speciality-</option>
+                     <select style="width:200px; color:black;" name="speciality"  style="color:black;">
+                      <option default value="{{$data->speciality}}">{{$data->speciality}}</option>
                       <option value="Skin">Skin</option>
                       <option value="Heart">Heart</option>
                       <option value="Eye">Eye</option>
@@ -202,24 +206,38 @@
                     </div>
                     <div class="input-box">
                       <span class="details">Email</span>
-                      <input type="email" name="email" placeholder="Enter  email" required>
+                      <input type="email" name="email" value="{{$data->email}}" required>
                     </div>
                     <div class="input-box">
                       <span class="details">Phone Number</span>
-                      <input type="number" name="phone_number" placeholder="Enter phone number" required>
+                      <input type="number" name="phone_number" value="{{$data->phone_number}}" required>
                     </div>
                     <div class="input-box">
                       <span class="details">Room number</span>
-                      <input style="color:black;" type="number" name="room_number" placeholder="Enter room number" required>
+                      <input style="color:black;" type="number" name="room_number" value="{{$data->room_number}}" required>
                     </div>
                    <div class="profile-box">
                       <span class="details">Profile Picture</span>
-                      <input type="file" name="file"  required>
+                      <img height="60px" width="60px" src="doctorimage/{{$data->picture}}">
                     </div>
 
-                    <div class="button pt-4">
-                    <input type="submit" class="btn btn-success"  value="Register">
+                    <div class="">
+                      <span class="details">Change Profile</span>
+                      <input style="color:black;" type="file" name="picture"  required>
+                    </div>
+
+                    <div class="p-3">
+                      
+                      <input type="submit" class="btn btn-success" value="Update Profile">
+                    </div>
+
+                    <!--
+
+                     <div class="button pt-4">
+                    <input type="submit" class="btn btn-success"  value="Update">
                     </div> 
+                    
+                     -->
 
                 <!--  <div class="button">
                     <input type="submit" value="Register">
@@ -232,9 +250,7 @@
 
 
       </div>
-      
-    </div>          
+        
       @include('admin.script');
-
   </body>
 </html>
